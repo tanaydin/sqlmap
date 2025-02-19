@@ -185,16 +185,14 @@ def main():
         if not conf.updateAll:
             # Postponed imports (faster start)
             if conf.smokeTest:
+                if conf.fixSums:
+                    from lib.core.common import updateSums
+                    updateSums()
                 from lib.core.testing import smokeTest
-                smokeTest()
-
-            if conf.fixSums:
-                from lib.core.common import updateSums
-                updateSums()
-
-            if conf.vulnTest:
+                os._exitcode = 1 - (smokeTest() or 0)
+            elif conf.vulnTest:
                 from lib.core.testing import vulnTest
-                vulnTest()
+                os._exitcode = 1 - (vulnTest() or 0)
             else:
                 from lib.controller.controller import start
                 if conf.profile:

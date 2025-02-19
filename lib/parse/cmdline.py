@@ -805,9 +805,6 @@ def cmdLineParser(argv=None):
         miscellaneous.add_argument("--fix", dest="fixSums", action="store_true",
             help="Update SHA256 sums in digest file")
 
-        miscellaneous.add_argument("--vuln", dest="vulnTest", action="store_true",
-            help="Run vulnerability testing")
-
         # Hidden and/or experimental options
         parser.add_argument("--crack", dest="hashFile",
             help=SUPPRESS)  # "Load and crack hashes from a file (standalone)"
