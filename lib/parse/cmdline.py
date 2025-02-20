@@ -177,6 +177,9 @@ def cmdLineParser(argv=None):
         request.add_argument("--drop-set-cookie", dest="dropSetCookie", action="store_true",
             help="Ignore Set-Cookie header from response")
 
+        request.add_argument("--http2", dest="http2", action="store_true",
+            help="Use HTTP version 2 (experimental)")
+
         request.add_argument("--mobile", dest="mobile", action="store_true",
             help="Imitate smartphone through HTTP User-Agent header")
 
@@ -674,7 +677,7 @@ def cmdLineParser(argv=None):
             help="Store dumped data to a custom file")
 
         general.add_argument("--dump-format", dest="dumpFormat",
-            help="Format of dumped data (CSV (default), HTML or SQLITE)")
+            help="Format of dumped data (CSV (default), HTML, SORTABLE_HTML or SQLITE)")
 
         general.add_argument("--encoding", dest="encoding",
             help="Character encoding used for data retrieval (e.g. GBK)")
