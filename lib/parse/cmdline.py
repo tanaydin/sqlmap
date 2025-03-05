@@ -799,6 +799,12 @@ def cmdLineParser(argv=None):
         miscellaneous.add_argument("--wizard", dest="wizard", action="store_true",
             help="Simple wizard interface for beginner users")
 
+        miscellaneous.add_argument("--smoke", dest="smokeTest", action="store_true",
+            help="Run basic smoke test")
+
+        miscellaneous.add_argument("--fix", dest="fixSums", action="store_true",
+            help="Update SHA256 sums in digest file")
+
         # Hidden and/or experimental options
         parser.add_argument("--crack", dest="hashFile",
             help=SUPPRESS)  # "Load and crack hashes from a file (standalone)"

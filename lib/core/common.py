@@ -5614,3 +5614,29 @@ def checkSums():
                     break
 
     return retVal
+
+def updateSums():
+    """
+    Update the content of the digest file (i.e. sha256sums.txt) with current file hashes
+    """
+    if not paths.get("DIGEST_FILE"):
+        return
+
+    # Read existing entries to maintain file order
+    entries = []
+    for entry in getFileItems(paths.DIGEST_FILE):
+        match = re.search(r"([0-9a-f]+)\s+([^\s]+)", entry)
+        if match:
+            _, filename = match.groups()
+            filepath = os.path.join(paths.SQLMAP_ROOT_PATH, filename).replace('/', os.path.sep)
+            if not checkFile(filepath, False):
+                continue
+            with open(filepath, "rb") as f:
+                content = f.read()
+            newhash = hashlib.sha256(content).hexdigest()
+            entries.append(f"{newhash}  {filename}")
+
+    # Write updated hashes back to file
+    if entries:
+        with open(paths.DIGEST_FILE, "w") as f:
+            f.write("\n".join(entries) + "\n")
